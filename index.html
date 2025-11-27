@@ -1,40 +1,118 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>My Private X Premium</title>
-<style>:root{--bg:#000;--card:#111;--accent:#e91e63}body{margin:0;background:var(--bg);color:#fff;font-family:Arial}
-.header{background:var(--card);padding:15px;position:fixed;top:0;width:100%;z-index:10;text-align:center}
-.header h1{font-size:22px}
-.search{margin:70px 10px 10px;padding:15px;background:#222;border-radius:50px;border:none;color:#fff;width:calc(100%-20px)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;padding:10px}
-.video{background:var(--card);border-radius:12px;overflow:hidden;cursor:pointer;position:relative}
-.thumb{width:100%;height:200px;object-fit:cover}
-.play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.play::after{content:'▶';font-size:24px;color:#fff;margin-left:4px}
-.title{padding:10px;font-size:14px;text-align:center}
-video{width:100%;height:100vh;background:#000;position:fixed;top:0;left:0;z-index:20}
-.back{position:fixed;top:20px;left:20px;background:var(--accent);color:#fff;padding:12px 20px;border-radius:50px;z-index:21;cursor:pointer}
-</style></head>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>My Private X - Premium 2025</title>
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
+  <style>
+    :root{--bg:#0f0f0f;--card:#1a1a1a;--accent:#ff0050;--text:#fff;--text2:#ccc}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;overflow-x:hidden}
+    .header{background:var(--card);padding:15px;position:fixed;top:0;width:100%;z-index:100;text-align:center;border-bottom:2px solid var(--accent)}
+    .header h1{font-size:22px;font-weight:700}
+    .search{margin:70px 15px 10px;padding:15px;background:#222;border-radius:50px;border:none;color:white;font-size:17px;width:calc(100% - 30px)}
+    .tabs{margin:10px 15px;display:flex;overflow-x:auto;gap:10px;padding-bottom:5px;border-bottom:1px solid #333}
+    .tab{padding:10px 20px;background:var(--card);border-radius:50px;white-space:nowrap;font-size:14px;cursor:pointer}
+    .tab.active{background:var(--accent)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:14px;padding:15px}
+    .video{background:var(--card);border-radius:12px;overflow:hidden;cursor:pointer;position:relative;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+    .thumb{width:100%;height:200px;object-fit:cover}
+    .playicon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(0,0,0,0.6);border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .playicon::after{content:'Play';font-size:24px;color:white;margin-left:4px}
+    .title{padding:8px 6px;font-size:13px;text-align:center;height:45px;overflow:hidden}
+    .duration{position:absolute;bottom:55px;left:5px;background:rgba(0,0,0,0.7);padding:2px 8px;border-radius:4px;font-size:11px}
+    .player-container{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999}
+    .backbtn{position:fixed;top:20px;left:20px;background:var(--accent);color:white;padding:12px 20px;border-radius:50px;z-index:1000;cursor:pointer}
+  </style>
+</head>
 <body>
-<div class="header"><h1>My Private X Premium</h1></div>
-<input type="text" class="search" placeholder="Search..." onkeyup="s(this.value)">
-<div class="grid" id="g"></div>
-<script>
-let v = [
-  {"title":"Bangla Hot 2025 - Nazmul Upload","thumb":"https://picsum.photos/300/200?random=1","src":"https://gofile.io/d/ho7lJZ"},
-  {"title":"Desi Bhabhi 2025","thumb":"https://picsum.photos/300/200?random=2","src":"https://gofile.io/d/abc123"},
-  {"title":"Indian New Upload","thumb":"https://picsum.photos/300/200?random=3","src":"https://gofile.io/d/def456"},
-  {"title":"Bangla Couple Night","thumb":"https://picsum.photos/300/200?random=4","src":"https://gofile.io/d/ghi789"},
-  {"title":"Desi Aunty Special","thumb":"https://picsum.photos/300/200?random=5","src":"https://gofile.io/d/jkl012"},
-  {"title":"Indian Viral 2025","thumb":"https://picsum.photos/300/200?random=6","src":"https://gofile.io/d/mno345"},
-  {"title":"Bangla Mix Hot","thumb":"https://picsum.photos/300/200?random=7","src":"https://gofile.io/d/pqr678"},
-  {"title":"Desi Romance","thumb":"https://picsum.photos/300/200?random=8","src":"https://gofile.io/d/stu901"},
-  {"title":"Indian Bhabhi","thumb":"https://picsum.photos/300/200?random=9","src":"https://gofile.io/d/vwx234"},
-  {"title":"Bangla New 2025","thumb":"https://picsum.photos/300/200?random=10","src":"https://gofile.io/d/yza567"}
-  // আরও ৪৯০টা যোগ করতে চাইলে আমাকে বল — আমি লিস্ট দিব
-];
-function show(){let h='';v.forEach(x=>{h+=`<div class="video" onclick="p('${x.src}')"><img class="thumb" src="${x.thumb}" loading="lazy"><div class="play"></div><div class="title">${x.title}</div></div>`});document.getElementById("g").innerHTML=h;}
-function p(u){document.body.innerHTML=`<video controls autoplay><source src="${u}"></video><div class="back" onclick="history.back()">Back</div>`;}
-function s(q){let f=v.filter(x=>x.title.toLowerCase().includes(q.toLowerCase()));let h='';f.forEach(x=>{h+=`<div class="video" onclick="p('${x.src}')"><img class="thumb" src="${x.thumb}"><div class="play"></div><div class="title">${x.title}</div></div>`});document.getElementById("g").innerHTML=h||"<p style='text-align:center;padding:50px'>No video found</p>";}
-show();
-</script>
-</body></html>
+  <div class="header"><h1>My Private X Premium</h1></div>
+  <input type="text" class="search" placeholder="Search videos..." onkeyup="search(this.value)"/>
+  <div class="tabs">
+    <div class="tab active" onclick="filter('all')">All</div>
+    <div class="tab" onclick="filter('bangla')">Bangla</div>
+    <div class="tab" onclick="filter('desi')">Desi</div>
+    <div class="tab" onclick="filter('indian')">Indian</div>
+    <div class="tab" onclick="filter('new')">New</div>
+  </div>
+  <div class="grid" id="grid">Loading videos...</div>
+
+  <div class="player-container" id="player">
+    <video id="my-video" class="video-js vjs-fluid vjs-big-play-centered" controls preload="auto" data-setup='{}'>
+      <source src="" type="video/mp4"/>
+    </video>
+    <div class="backbtn" onclick="closePlayer()">Back</div>
+  </div>
+
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+  <script>
+    let player;
+    let videos = []; // এখানে সব ভিডিও আসবে
+
+    // তোর নিজের ভিডিও (ম্যানুয়ালি যোগ করবি)
+    videos.push({title:"Bangla Hot 2025 - Nazmul", thumb:"https://i.ibb.co/demo.jpg", src:"https://gofile.io/d/ho7lJZ", cat:"bangla new", dur:"12:34"});
+
+    // Eporner API থেকে ৫০টা
+    fetch('https://www.eporner.com/api/v2/video/search/?query=bangla+desi+indian&per_page=50&format=json')
+      .then(r=>r.json()).then(d=>{
+        d.videos.forEach(v=>{
+          videos.push({
+            title: v.title,
+            thumb: v.default_thumb.src,
+            src: v.embed,
+            cat: "all",
+            dur: v.length_min+":"+v.length_sec.toString().padStart(2,'0')
+          });
+        });
+        show();
+      });
+
+    // pAPI থেকে আরও ৫০টা
+    fetch('https://www.papi.rest/search?q=bangla+desi+indian')
+      .then(r=>r.json()).then(d=>{
+        d.results.forEach(v=>{
+          videos.push({title:v.name, thumb:v.thumbnail, src:v.video, cat:"all", dur:"10:00"});
+        });
+        show();
+      });
+
+    function show(){
+      let h = '';
+      videos.forEach(v=>{
+        h += `<div class='video' onclick="play('${v.src}')">
+          <img class='thumb' src='${v.thumb}' loading='lazy'/>
+          <div class='playicon'></div>
+          <div class='duration'>${v.dur}</div>
+          <div class='title'>${v.title}</div>
+        </div>`;
+      });
+      document.getElementById('grid').innerHTML = h;
+    }
+
+    function play(url){
+      document.getElementById('player').style.display = 'block';
+      if (!player) player = videojs('my-video', {fluid: true);
+      player.src({type: 'video/mp4', src: url});
+      player.ready(()=>player.play());
+    }
+
+    function closePlayer(){
+      document.getElementById('player').style.display = 'none';
+      if(player) player.pause();
+    }
+
+    function search(q){
+      let f = videos.filter(v=>v.title.toLowerCase().includes(q.toLowerCase()));
+      document.getElementById('grid').innerHTML = f.map(v=>`<div class='video' onclick="play('${v.src}')">...`).join('');
+    }
+
+    function filter(c){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      event.target.classList.add('active');
+      let f = c==='all'?videos:videos.filter(v=>v.cat.includes(c));
+      document.getElementById('grid').innerHTML = f.map(v=>`<div class='video' onclick="play('${v.src}')">...`).join('');
+    }
+  </script>
+</body>
+</html>
